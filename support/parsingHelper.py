@@ -1,4 +1,5 @@
-import fugashi
+#import fugashi
+import MeCab
 import os
 import pykakasi
 from googletrans import Translator
@@ -31,7 +32,7 @@ word_dict = pickle.load( open( savedModelDir+"word_dict.pkl", "rb" ) )
 
 
 kks = pykakasi.kakasi()
-tagger = fugashi.Tagger()
+tagger = MeCab.Tagger("")
 translator = Translator()
 
 
@@ -70,22 +71,26 @@ def lyricProcess(text):
 
 def hasEnglishWords(word,tokenizer):
   resStr = ''
-  for kanaStr in tokenizer(word):
+  print(tokenizer.parse(word))
+  for kanaStr in tokenizer.parse(word):
     kanaStr = str(kanaStr)
     kanaStr = lyricProcess(punctPreprocess(kanaStr)).replace('\n','')
-    #print(kanaStr)
+    print(kanaStr)
     #if kanaStr and isEnglish(kanaStr):
     if isEnglish(kanaStr):
       return True
   return False
 
 def isEnglish(s):
+  """
     try:
         s.encode(encoding='utf-8').decode('ascii')
     except UnicodeDecodeError:
         return False
     else:
         return True
+  """
+  return True
 
 def getLengthJPWord(word, hiraParser):
   resStr = ''

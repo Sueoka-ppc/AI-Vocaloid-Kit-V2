@@ -4,7 +4,8 @@
 # python3 main.py --modelPath savedModels/9-22-music.pt --seed inputs/noteSeed.txt --dupThresh 3 --numOfNotes 50
 
 import numpy as np
-import fugashi
+#import fugashi
+import MeCab
 import os
 import pykakasi
 import jaconv
@@ -68,7 +69,7 @@ if seedNotePath is not None:
     print("The path to the file contianing inital notes, represented as arguument --seed, does not exist")
     raise
 
-  with open(seedNotePath,"r") as noteSeedHandle:
+  with open(seedNotePath,"r",encoding="utf-8") as noteSeedHandle:
     for line in noteSeedHandle:
       mainList.append(line)
 
@@ -357,7 +358,8 @@ f.close()
 
 import time
 
-tagger = fugashi.Tagger()
+#tagger = fugashi.Tagger()
+tagger = MeCab.Tagger()
 
 # Trump's speeches here: https://github.com/ryanmcdermott/trump-speeches
 #trump = open('speeches.txt', encoding='utf8').read()
